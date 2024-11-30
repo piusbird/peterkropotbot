@@ -1,6 +1,10 @@
 import { env } from "node:process";
 import { z } from "zod";
 import type { AtpAgentLoginOpts } from "@atproto/api";
+import DatabaseConstructor, { Database } from "better-sqlite3";
+
+
+
 
 const envSchema = z.object({
   BSKY_HANDLE: z.string().min(1),
@@ -16,3 +20,9 @@ export const bskyAccount: AtpAgentLoginOpts = {
 };
 
 export const bskyService = parsed.BSKY_SERVICE;
+
+const dbpath: string = env.DATABASE_PATH!;
+export const db: Database = new DatabaseConstructor(dbpath);
+
+
+
